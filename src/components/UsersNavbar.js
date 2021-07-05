@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-class AppNavbar extends Component 
+class UsersNavbar extends Component 
 {
     state = {
         isOpen: false
@@ -26,49 +26,36 @@ class AppNavbar extends Component
     render() {
         return (
             <div>
-                <Navbar color="white" white expand="sm" className="mb-2">
+                <Navbar color="dark" dark expand="sm" className="mb-2">
                     <Container>
-                        <NavbarBrand href="/d360admin">
-                        <img
-                            alt=""
-                            src={process.env.PUBLIC_URL + '/Design360Logo.png'}
-                            height="50"
-                            className="d-inline-block align-top"
-                        />
+                        <NavbarBrand>
+                            <Link to="/Users" style={{ color: 'inherit', textDecoration: 'inherit'}}>Users</Link>
                         </NavbarBrand>
                         <NavbarToggler onClick={this.toggle}/>
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
                                     <NavLink>
-                                        <Link to="/Users" style={{ color: 'inherit', textDecoration: 'inherit'}}>Users</Link>
+                                        <Link to="/Users/AddUser" style={{ color: 'inherit', textDecoration: 'inherit'}}>Add</Link>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink>
-                                        <Link to="/CommonData" style={{ color: 'inherit', textDecoration: 'inherit'}}>Common Data</Link>
+                                        <Link to="/Users/EditUser" style={{ color: 'inherit', textDecoration: 'inherit'}}>Edit</Link>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink>
-                                        <Link to="/CentralRepo" style={{ color: 'inherit', textDecoration: 'inherit'}}>Central Repo</Link>
+                                        <Link to="/Users/CopyUser" style={{ color: 'inherit', textDecoration: 'inherit'}}>Copy</Link>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink>
-                                        <Link to="/ProductAttributes" style={{ color: 'inherit', textDecoration: 'inherit'}}>Product Attributes</Link>
+                                        <Link to="/Users/DeleteUser" style={{ color: 'inherit', textDecoration: 'inherit'}}>Delete</Link>
                                     </NavLink>
                                 </NavItem>
                             </Nav>
                         </Collapse>
-                        <NavbarBrand href="/d360admin">
-                        <img
-                            alt=""
-                            src={process.env.PUBLIC_URL + '/WhittanLogo.jpg'}
-                            height="50"
-                            className="d-inline-block align-top"
-                        />{' '}
-                        </NavbarBrand>
                     </Container>
                 </Navbar>
             </div>
@@ -78,4 +65,4 @@ class AppNavbar extends Component
 
 
 
-export default AppNavbar;
+export default UsersNavbar;

@@ -8,11 +8,11 @@ import {
     Button,
     Col,
 } from 'reactstrap';
-import { addUser } from '../services/users';
-import { getChannels, getSalesGroups, getSalesOffices, getUserFullnamesAndID } from '../services/services';
+import { addUser } from '../../services/users';
+import { getChannels, getSalesGroups, getSalesOffices, getUserFullnamesAndID } from '../../services/services';
 
 
-const Users = () =>
+const AddUser = () =>
 {
 
     const [FirstName,       setFirstName]   = useState();
@@ -32,6 +32,7 @@ const Users = () =>
     const [SalesOffices,    setSalesOffices]    = useState([]);
     const [SalesGroups,     setSalesGroups]     = useState([]);
     const [Users,           setUsers]           = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         getChannels()
@@ -62,9 +63,13 @@ const Users = () =>
         addUser(currentUser)
         .then(data => {
             if(data.FirstName)
+            {
                 alert("User Added")
+                window.location.reload();
+            }   
             else
-                alert("User Not Added")
+                setErrorMessage(JSON.stringify(data, null, 2))
+            
         });
     };
 
@@ -93,23 +98,24 @@ const Users = () =>
 
     return(
         <Container>
-            <h1>
+        
+            <h3>
                 Add User
-            </h1>
+            </h3>
             <Form onSubmit={handleSubmit}>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="FirstName" sm={2}>First Name</Label>
                     <Col sm={10}>
                         <Input type="text" name="FirstName" id="FirstName" placeholder="First Name" value={ FirstName } onChange={e => setFirstName(e.target.value)} required/>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4" >
+                <FormGroup row className="mb-2" >
                     <Label for="LastName" sm={2}>Last Name</Label>
                     <Col sm={10}>
                         <Input type="text" name="LastName" id="LastName" placeholder="Last Name" value={ LastName } onChange={e => setLastName(e.target.value)} required/>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="Channel" sm={2}>Channels</Label>
                     <Col sm={10}>
                         <Input type="select" name="select" id="Channel" value={ ChannelID } onChange={e => setChannelID (e.target.value)} required>
@@ -122,7 +128,7 @@ const Users = () =>
                         </Input>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="SalesPerson" sm={2}>Sales Person</Label>
                     <Col sm={10}>
                         <Input type="select" name="SalesPerson" id="SalesPerson" value={ SalesPersonID  } onChange={e => setSalesPersonID (e.target.value)} required>
@@ -136,7 +142,7 @@ const Users = () =>
                         </Input>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="Designer" sm={2}>Designer</Label>
                     <Col sm={10}>
                         <Input type="select" name="Designer" id="Designer" value={ DesignerID  } onChange={e => setDesignerID (e.target.value)} required>
@@ -150,7 +156,7 @@ const Users = () =>
                         </Input>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="SalesOffice" sm={2}>Sales Office</Label>
                     <Col sm={10}>
                         <Input type="select" name="SalesOffice" id="SalesOffice" value={ SalesOfficeID  } onChange={e => setSalesOfficeID (e.target.value)} required>
@@ -163,7 +169,7 @@ const Users = () =>
                         </Input>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="SalesGroup" sm={2}>Sales Group</Label>
                     <Col sm={10}>
                         <Input type="select" name="SalesGroup" id="SalesGroup" value={ SalesGroupID } onChange={e => setSalesGroupID (e.target.value)} required>
@@ -176,40 +182,43 @@ const Users = () =>
                         </Input>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="Company" sm={2}>Company</Label>
                     <Col sm={10}>
                         <Input type="text" name="Company" id="Company" placeholder="Company" value={ Company } onChange={e => setCompany(e.target.value)} required/>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="Position" sm={2}>Position</Label>
                     <Col sm={10}>
                         <Input type="text" name="Position" id="Position" placeholder="Position" value={ Position } onChange={e => setPosition(e.target.value)} required/>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="Telephone" sm={2}>Telephone</Label>
                     <Col sm={10}>
                         <Input type="text" name="Telephone" id="Telephone" placeholder="Telephone Number" value={ Telephone } onChange={e => setTelephone(e.target.value)} required/>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="Mobile" sm={2}>Mobile</Label>
                     <Col sm={10}>
                     <Input type="text" name="Mobile" id="Mobile" placeholder="Mobile Number" value={ Mobile } onChange={e => setMobile(e.target.value)} required/>
                     </Col>
                 </FormGroup>
-                <FormGroup row className="mb-4">
+                <FormGroup row className="mb-2">
                     <Label for="Email" sm={2}>Email</Label>
                     <Col sm={10}>
                     <Input type="email" name="Email" id="Email" placeholder="Email" value={ Email } onChange={e => setEmail(e.target.value)} required/>
                     </Col>
                 </FormGroup>
                 <Button type="submit">Submit</Button>
+                {errorMessage && (
+                <p className="error" className="text-danger"> {errorMessage} </p>
+                )}
             </Form>
         </Container>
     );
 }
 
-export default Users;
+export default AddUser;
